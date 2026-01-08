@@ -68,10 +68,15 @@ function moveCar(car, progress) {
 let camX = 0;
 
 function updateCamera() {
-  const leader = Math.max(progress1, progress2);
-  const targetX = Math.min(0, 500 - leader);
+  const leaderProgress =
+    progress1 > progress2 ? progress1 : progress2;
 
-  camX += (targetX - camX) * 0.07;
+  const leaderPoint = path.getPointAtLength(leaderProgress);
+
+  // Centro de cámara (ajústalo si quieres)
+  const targetX = 500 - leaderPoint.x;
+
+  camX += (targetX - camX) * 0.08;
   track.style.transform = `translateX(${camX}px)`;
 }
 
