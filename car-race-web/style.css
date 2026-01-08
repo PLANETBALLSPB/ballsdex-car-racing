@@ -1,8 +1,7 @@
 body {
-  font-family: Arial, Helvetica, sans-serif;
-  background: #f4f4f4;
+  font-family: Arial, sans-serif;
+  background: #f2f2f2;
   text-align: center;
-  margin: 0;
   padding: 20px;
 }
 
@@ -11,58 +10,41 @@ h1 {
 }
 
 .subtitle {
-  margin-top: 0;
   color: #555;
+  margin-top: 0;
 }
 
 #track {
   position: relative;
   width: 700px;
-  height: 200px;
+  height: 220px;
   margin: 30px auto;
-  background: #ddd;
-  border: 4px solid #222;
-  border-radius: 10px;
+  background: #cfcfcf;
+  border: 5px solid #222;
+  border-radius: 12px;
 }
 
-.lane-label {
+.lane {
   position: absolute;
-  left: 10px;
-  top: 20px;
-  font-size: 12px;
-  color: #444;
+  width: 100%;
+  height: 50%;
+  border-bottom: 2px dashed #999;
 }
 
-.lane-label.second {
-  top: 120px;
+.lane:last-child {
+  border-bottom: none;
 }
 
 .car {
   position: absolute;
-  width: 90px;
-  height: 40px;
-  line-height: 40px;
-  color: white;
-  font-size: 14px;
-  font-weight: bold;
-  text-align: center;
-  border-radius: 6px;
-}
-
-.car1 {
-  top: 40px;
+  width: 60px;
+  height: 60px;
   left: 0;
-  background: #e74c3c;
-}
-
-.car2 {
-  top: 140px;
-  left: 0;
-  background: #3498db;
-}
-
-#info {
-  margin-top: 15px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 50%;
+  border: 3px solid #000;
+  box-shadow: 0 0 10px rgba(0,0,0,0.4);
 }
 
 #status {

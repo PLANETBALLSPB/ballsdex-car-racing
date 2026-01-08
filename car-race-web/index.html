@@ -4,85 +4,83 @@
   <meta charset="UTF-8">
   <title>BallsDex Car Racing</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- CSS -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <h1>🏁 BallsDex Car Racing</h1>
-  <p class="subtitle">Simulación visual de carrera</p>
+<h1>🏁 BallsDex Car Racing</h1>
+<p class="subtitle">Simulación automática</p>
 
-  <div id="track">
-    <div class="lane-label">Jugador 1</div>
-    <div class="lane-label second">Jugador 2</div>
-  </div>
+<div id="track">
+  <div class="lane"></div>
+  <div class="lane"></div>
+</div>
 
-  <div id="info">
-    <p id="status">Preparando carrera...</p>
-  </div>
+<p id="status">⏳ Cargando carrera...</p>
 
-  <!-- JS -->
-  <script>
-    fetch("race.json")
-      .then(response => response.json())
-      .then(data => startRace(data))
-      .catch(() => {
-        document.getElementById("status").textContent =
-          "❌ No se pudo cargar race.json";
-      });
+<script>
+(async () => {
+  try {
+    const response = await fetch("race.json", { cache: "no-store" });
+    const data = await response.json();
 
-    function startRace(data) {
-      const track = document.getElementById("track");
-      const status = document.getElementById("status");
+    startRace(data);
+  } catch (e) {
+    document.getElementById("status").textContent =
+      "❌ Error cargando race.json";
+  }
+})();
 
-      const car1 = document.createElement("div");
-      car1.className = "car car1";
-      car1.textContent = data.player1.name;
+function startRace(data) {
+  const track = document.getElementById("track");
+  const status = document.getElementById("status");
 
-      const car2 = document.createElement("div");
-      car2.className = "car car2";
-      car2.textContent = data.player2.name;
+  const car1 = document.createElement("div");
+  car1.className = "car";
+  car1.style.backgroundImage = `url(${data.player1.avatar})`;
+  car1.style.top = "40px";
 
-      track.appendChild(car1);
-      track.appendChild(car2);
+  const car2 = document.createElement("div");
+  car2.className = "car";
+  car2.style.backgroundImage = `url(${data.player2.avatar})`;
+  car2.style.top = "140px";
 
-      let pos1 = 0;
-      let pos2 = 0;
-      let lap = 1;
-      const maxLaps = 3;
-      const finishLine = 620;
+  track.appendChild(car1);
+  track.appendChild(car2);
 
-      status.textContent = "🚦 ¡Salida!";
+  let pos1 = 0;
+  let pos2 = 0;
+  let lap = 1;
+  const maxLaps = 3;
+  const finish = 640;
 
-      const interval = setInterval(() => {
-        pos1 += data.player1.speed;
-        pos2 += data.player2.speed;
+  status.textContent = `🚦 Vuelta ${lap}/${maxLaps}`;
 
-        car1.style.left = pos1 + "px";
-        car2.style.left = pos2 + "px";
+  const raceInterval = setInterval(() => {
+    pos1 += data.player1.speed;
+    pos2 += data.player2.speed;
 
-        if (pos1 >= finishLine || pos2 >= finishLine) {
-          lap++;
-          pos1 = 0;
-          pos2 = 0;
+    car1.style.left = pos1 + "px";
+    car2.style.left = pos2 + "px";
 
-          if (lap > maxLaps) {
-            clearInterval(interval);
+    if (pos1 >= finish || pos2 >= finish) {
+      lap++;
 
-            const winner =
-              data.player1.speed > data.player2.speed
-                ? data.player1.name
-                : data.player2.name;
+      if (lap > maxLaps) {
+        clearInterval(raceInterval);
+        const winner =
+          pos1 > pos2 ? data.player1.name : data.player2.name;
+        status.textContent = `🏆 Ganador: ${winner}`;
+        return;
+      }
 
-            status.textContent = "🏆 Ganador: " + winner;
-          } else {
-            status.textContent = "🔁 Vuelta " + lap + " / " + maxLaps;
-          }
-        }
-      }, 60);
+      pos1 = 0;
+      pos2 = 0;
+      status.textContent = `🔁 Vuelta ${lap}/${maxLaps}`;
     }
-  </script>
+  }, 50);
+}
+</script>
 
 </body>
 </html>
