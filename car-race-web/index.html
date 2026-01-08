@@ -1,86 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>BallsDex Car Racing</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>🏁 BallsDex – Car Race</title>
+
+  <!-- Responsive -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- JS -->
+  <script src="script.js" defer></script>
 </head>
+
 <body>
+  <h1>🏁 Simulación de Carrera</h1>
 
-<h1>🏁 BallsDex Car Racing</h1>
-<p class="subtitle">Simulación automática</p>
+  <!-- =========================
+       JUGADORES
+  ========================== -->
+  <div class="players">
 
-<div id="track">
-  <div class="lane"></div>
-  <div class="lane"></div>
-</div>
+    <div class="player">
+      <img id="p1-avatar" class="avatar" src="" alt="Jugador 1" />
+      <h2 id="p1-name">Jugador 1</h2>
+      <p>HP: <span id="p1-hp">0</span></p>
+      <p>Downforce: <span id="p1-df">0</span></p>
+    </div>
 
-<p id="status">⏳ Cargando carrera...</p>
+    <div class="player">
+      <img id="p2-avatar" class="avatar" src="" alt="Jugador 2" />
+      <h2 id="p2-name">Jugador 2</h2>
+      <p>HP: <span id="p2-hp">0</span></p>
+      <p>Downforce: <span id="p2-df">0</span></p>
+    </div>
 
-<script>
-(async () => {
-  try {
-    const response = await fetch("race.json", { cache: "no-store" });
-    const data = await response.json();
+  </div>
 
-    startRace(data);
-  } catch (e) {
-    document.getElementById("status").textContent =
-      "❌ Error cargando race.json";
-  }
-})();
+  <!-- =========================
+       PISTA
+  ========================== -->
+  <div class="track">
 
-function startRace(data) {
-  const track = document.getElementById("track");
-  const status = document.getElementById("status");
+    <div class="lane">
+      <div id="car1" class="car car1"></div>
+    </div>
 
-  const car1 = document.createElement("div");
-  car1.className = "car";
-  car1.style.backgroundImage = `url(${data.player1.avatar})`;
-  car1.style.top = "40px";
+    <div class="lane">
+      <div id="car2" class="car car2"></div>
+    </div>
 
-  const car2 = document.createElement("div");
-  car2.className = "car";
-  car2.style.backgroundImage = `url(${data.player2.avatar})`;
-  car2.style.top = "140px";
+  </div>
 
-  track.appendChild(car1);
-  track.appendChild(car2);
+  <!-- =========================
+       VUELTAS
+  ========================== -->
+  <div id="laps" class="laps"></div>
 
-  let pos1 = 0;
-  let pos2 = 0;
-  let lap = 1;
-  const maxLaps = 3;
-  const finish = 640;
-
-  status.textContent = `🚦 Vuelta ${lap}/${maxLaps}`;
-
-  const raceInterval = setInterval(() => {
-    pos1 += data.player1.speed;
-    pos2 += data.player2.speed;
-
-    car1.style.left = pos1 + "px";
-    car2.style.left = pos2 + "px";
-
-    if (pos1 >= finish || pos2 >= finish) {
-      lap++;
-
-      if (lap > maxLaps) {
-        clearInterval(raceInterval);
-        const winner =
-          pos1 > pos2 ? data.player1.name : data.player2.name;
-        status.textContent = `🏆 Ganador: ${winner}`;
-        return;
-      }
-
-      pos1 = 0;
-      pos2 = 0;
-      status.textContent = `🔁 Vuelta ${lap}/${maxLaps}`;
-    }
-  }, 50);
-}
-</script>
+  <!-- =========================
+       RESULTADO
+  ========================== -->
+  <h2 id="result" class="result"></h2>
 
 </body>
 </html>
+
