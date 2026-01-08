@@ -42,13 +42,14 @@ function moveCar(car, progress) {
   car.style.top = `${point.y}px`;
 }
 
+let camX = 0;
+
 function updateCamera() {
-  const leaderProgress = Math.max(progress1, progress2);
-  const cameraX = Math.min(
-    0,
-    300 - leaderProgress
-  );
-  track.style.transform = `translateX(${cameraX}px)`;
+  const leader = Math.max(progress1, progress2);
+  const targetX = Math.min(0, 400 - leader);
+
+  camX += (targetX - camX) * 0.08; // suavizado
+  track.style.transform = `translateX(${camX}px)`;
 }
 
 function lapTime(hp, df) {
@@ -57,6 +58,11 @@ function lapTime(hp, df) {
 
 function tick() {
   if (lap > totalLaps) {
+    const winCar = winner === "1" ? car1 : car2;
+
+    // detener ganador
+    winCar.style.filter = "drop-shadow(0 0 12px gold)";
+
     resultDiv.textContent =
       winner === "1"
         ? `🏆 Ganador: ${p1}`
@@ -71,7 +77,12 @@ function tick() {
   moveCar(car2, progress2);
   updateCamera();
 
-  if (progress1 >= pathLength && progress2 >= pathLength) {
+  if (progress1 >= pathLength) progress1 -= pathLength;
+  if (progress2 >= pathLength) progress2 -= pathLength;
+
+  if (Math.floor(progress1 / pathLength) >= lap ||
+      Math.floor(progress2 / pathLength) >= lap) {
+
     const t1 = lapTime(hp1, df1);
     const t2 = lapTime(hp2, df2);
 
@@ -79,10 +90,9 @@ function tick() {
       <p>Vuelta ${lap}: ${p1} ⏱️ ${t1}s | ${p2} ⏱️ ${t2}s</p>
     `;
 
-    progress1 = 0;
-    progress2 = 0;
     lap++;
   }
+
 
   requestAnimationFrame(tick);
 }
