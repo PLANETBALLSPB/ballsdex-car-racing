@@ -11,6 +11,8 @@
   <div id="track">
     <!-- Pista -->
     <svg id="track-svg" viewBox="0 0 2000 600">
+
+      <!-- Pista principal -->
       <path
         id="track-path"
         d="
@@ -26,15 +28,23 @@
         stroke-width="120"
         stroke-linecap="round"
       />
+
+      <!-- Borde interior -->
       <path
-        d="M100,300
-           C400,100 800,100 1100,300
-           C1400,500 1700,500 1900,300"
+        d="
+          M300,300
+          C600,100 900,100 1200,300
+          C1500,500 1800,500 1900,300
+          C1800,100 1400,100 1100,300
+          C800,500 500,500 300,300
+          Z
+        "
         fill="none"
         stroke="#777"
         stroke-width="90"
         stroke-linecap="round"
       />
+
     </svg>
 
     <!-- Carros -->
