@@ -1,0 +1,42 @@
+body {
+  background: #0e0e0e;
+  color: white;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px;
+}
+
+.track {
+  width: 90%;
+  margin: auto;
+}
+
+.lane {
+  background: #2c2c2c;
+  height: 80px;
+  margin: 30px 0;
+  border-radius: 10px;
+  position: relative;
+}
+
+.car {
+  width: 60px;
+  height: 40px;
+  position: absolute;
+  left: 10px;
+  top: 20px;
+  transition: left 1.8s linear;
+}
+
+.red { background: #e74c3c; }
+.blue { background: #3498db; }
+
+.laps {
+  margin-top: 20px;
+  font-size: 16px;
+}

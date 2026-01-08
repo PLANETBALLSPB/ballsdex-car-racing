@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>🏁 Carrera de Carros</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>🏁 Simulación de Carrera (3 Vueltas)</h1>
+
+<div class="stats">
+  <div>
+    <h3 id="p1-name"></h3>
+    <p>HP: <span id="p1-hp"></span></p>
+    <p>Downforce: <span id="p1-df"></span></p>
+  </div>
+  <div>
+    <h3 id="p2-name"></h3>
+    <p>HP: <span id="p2-hp"></span></p>
+    <p>Downforce: <span id="p2-df"></span></p>
+  </div>
+</div>
+
+<div class="track">
+  <div class="lane">
+    <div id="car1" class="car red"></div>
+  </div>
+  <div class="lane">
+    <div id="car2" class="car blue"></div>
+  </div>
+</div>
+
+<div class="laps" id="laps"></div>
+
+<script src="race.js"></script>
+</body>
+</html>
