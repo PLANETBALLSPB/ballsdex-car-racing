@@ -2,39 +2,54 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Car Race</title>
+  <title>Car Race Simulation</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<h1>🏁 Carrera</h1>
+<div id="camera">
+  <div id="track">
+    <!-- Pista -->
+    <svg id="track-svg" viewBox="0 0 2000 600">
+      <path
+        id="track-path"
+        d="M100,300
+           C400,100 800,100 1100,300
+           C1400,500 1700,500 1900,300"
+        fill="none"
+        stroke="#444"
+        stroke-width="120"
+        stroke-linecap="round"
+      />
+      <path
+        d="M100,300
+           C400,100 800,100 1100,300
+           C1400,500 1700,500 1900,300"
+        fill="none"
+        stroke="#777"
+        stroke-width="90"
+        stroke-linecap="round"
+      />
+    </svg>
 
-<div id="track">
-  <svg viewBox="0 0 500 300">
-    <!-- pista -->
-    <path id="track-path"
-      d="M50 50 H450 V250 H50 Z
-         M120 120 H380 V180 H120 Z"
-      fill="none"
-      stroke="#555"
-      stroke-width="18"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    />
-  </svg>
+    <!-- Carros -->
+    <div class="car" id="car1">
+      <img id="avatar1" />
+      <span id="name1"></span>
+    </div>
 
-  <!-- carros -->
-  <div id="car1" class="car red">
-    <img id="avatar1" />
-  </div>
-
-  <div id="car2" class="car blue">
-    <img id="avatar2" />
+    <div class="car" id="car2">
+      <img id="avatar2" />
+      <span id="name2"></span>
+    </div>
   </div>
 </div>
 
-<div id="laps"></div>
-<div id="result"></div>
+<div id="ui">
+  <h2>🏁 Carrera</h2>
+  <div id="laps"></div>
+  <div id="result"></div>
+</div>
 
 <script src="script.js"></script>
 </body>
