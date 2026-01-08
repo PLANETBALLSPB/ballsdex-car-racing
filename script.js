@@ -74,7 +74,7 @@ function updateCamera() {
   const leaderPoint = path.getPointAtLength(leaderProgress);
 
   // Centro de cámara (ajústalo si quieres)
-  const targetX = 500 - leaderPoint.x;
+  const targetX = 700 - leaderPoint.x;
 
   camX += (targetX - camX) * 0.08;
   track.style.transform = `translateX(${camX}px)`;
