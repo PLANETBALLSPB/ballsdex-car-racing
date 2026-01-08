@@ -1,38 +1,88 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>🏁 Carrera de Carros</title>
+  <title>BallsDex Car Racing</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- CSS -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h1>🏁 Simulación de Carrera (3 Vueltas)</h1>
+  <h1>🏁 BallsDex Car Racing</h1>
+  <p class="subtitle">Simulación visual de carrera</p>
 
-<div class="stats">
-  <div>
-    <h3 id="p1-name"></h3>
-    <p>HP: <span id="p1-hp"></span></p>
-    <p>Downforce: <span id="p1-df"></span></p>
+  <div id="track">
+    <div class="lane-label">Jugador 1</div>
+    <div class="lane-label second">Jugador 2</div>
   </div>
-  <div>
-    <h3 id="p2-name"></h3>
-    <p>HP: <span id="p2-hp"></span></p>
-    <p>Downforce: <span id="p2-df"></span></p>
-  </div>
-</div>
 
-<div class="track">
-  <div class="lane">
-    <div id="car1" class="car red"></div>
+  <div id="info">
+    <p id="status">Preparando carrera...</p>
   </div>
-  <div class="lane">
-    <div id="car2" class="car blue"></div>
-  </div>
-</div>
 
-<div class="laps" id="laps"></div>
+  <!-- JS -->
+  <script>
+    fetch("race.json")
+      .then(response => response.json())
+      .then(data => startRace(data))
+      .catch(() => {
+        document.getElementById("status").textContent =
+          "❌ No se pudo cargar race.json";
+      });
 
-<script src="race.js"></script>
+    function startRace(data) {
+      const track = document.getElementById("track");
+      const status = document.getElementById("status");
+
+      const car1 = document.createElement("div");
+      car1.className = "car car1";
+      car1.textContent = data.player1.name;
+
+      const car2 = document.createElement("div");
+      car2.className = "car car2";
+      car2.textContent = data.player2.name;
+
+      track.appendChild(car1);
+      track.appendChild(car2);
+
+      let pos1 = 0;
+      let pos2 = 0;
+      let lap = 1;
+      const maxLaps = 3;
+      const finishLine = 620;
+
+      status.textContent = "🚦 ¡Salida!";
+
+      const interval = setInterval(() => {
+        pos1 += data.player1.speed;
+        pos2 += data.player2.speed;
+
+        car1.style.left = pos1 + "px";
+        car2.style.left = pos2 + "px";
+
+        if (pos1 >= finishLine || pos2 >= finishLine) {
+          lap++;
+          pos1 = 0;
+          pos2 = 0;
+
+          if (lap > maxLaps) {
+            clearInterval(interval);
+
+            const winner =
+              data.player1.speed > data.player2.speed
+                ? data.player1.name
+                : data.player2.name;
+
+            status.textContent = "🏆 Ganador: " + winner;
+          } else {
+            status.textContent = "🔁 Vuelta " + lap + " / " + maxLaps;
+          }
+        }
+      }, 60);
+    }
+  </script>
+
 </body>
 </html>

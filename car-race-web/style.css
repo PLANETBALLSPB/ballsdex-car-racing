@@ -1,42 +1,71 @@
 body {
-  background: #0e0e0e;
-  color: white;
-  font-family: Arial, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f4f4f4;
   text-align: center;
+  margin: 0;
+  padding: 20px;
 }
 
-.stats {
-  display: flex;
-  justify-content: space-around;
-  margin: 20px;
+h1 {
+  margin-bottom: 5px;
 }
 
-.track {
-  width: 90%;
-  margin: auto;
+.subtitle {
+  margin-top: 0;
+  color: #555;
 }
 
-.lane {
-  background: #2c2c2c;
-  height: 80px;
-  margin: 30px 0;
-  border-radius: 10px;
+#track {
   position: relative;
+  width: 700px;
+  height: 200px;
+  margin: 30px auto;
+  background: #ddd;
+  border: 4px solid #222;
+  border-radius: 10px;
 }
 
-.car {
-  width: 60px;
-  height: 40px;
+.lane-label {
   position: absolute;
   left: 10px;
   top: 20px;
-  transition: left 1.8s linear;
+  font-size: 12px;
+  color: #444;
 }
 
-.red { background: #e74c3c; }
-.blue { background: #3498db; }
+.lane-label.second {
+  top: 120px;
+}
 
-.laps {
-  margin-top: 20px;
-  font-size: 16px;
+.car {
+  position: absolute;
+  width: 90px;
+  height: 40px;
+  line-height: 40px;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 6px;
+}
+
+.car1 {
+  top: 40px;
+  left: 0;
+  background: #e74c3c;
+}
+
+.car2 {
+  top: 140px;
+  left: 0;
+  background: #3498db;
+}
+
+#info {
+  margin-top: 15px;
+}
+
+#status {
+  font-size: 18px;
+  font-weight: bold;
 }
