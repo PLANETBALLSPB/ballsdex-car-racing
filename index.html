@@ -2,67 +2,40 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>🏁 BallsDex – Car Race</title>
-
-  <!-- Responsive -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!-- CSS -->
+  <title>Car Race</title>
   <link rel="stylesheet" href="style.css" />
-
-  <!-- JS -->
-  <script src="script.js" defer></script>
 </head>
-
 <body>
-  <h1>🏁 Simulación de Carrera</h1>
 
-  <!-- =========================
-       JUGADORES
-  ========================== -->
-  <div class="players">
+<h1>🏁 Carrera</h1>
 
-    <div class="player">
-      <img id="p1-avatar" class="avatar" src="" alt="Jugador 1" />
-      <h2 id="p1-name">Jugador 1</h2>
-      <p>HP: <span id="p1-hp">0</span></p>
-      <p>Downforce: <span id="p1-df">0</span></p>
-    </div>
+<div id="track">
+  <svg viewBox="0 0 500 300">
+    <!-- pista -->
+    <path id="track-path"
+      d="M50 50 H450 V250 H50 Z
+         M120 120 H380 V180 H120 Z"
+      fill="none"
+      stroke="#555"
+      stroke-width="18"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+  </svg>
 
-    <div class="player">
-      <img id="p2-avatar" class="avatar" src="" alt="Jugador 2" />
-      <h2 id="p2-name">Jugador 2</h2>
-      <p>HP: <span id="p2-hp">0</span></p>
-      <p>Downforce: <span id="p2-df">0</span></p>
-    </div>
-
+  <!-- carros -->
+  <div id="car1" class="car red">
+    <img id="avatar1" />
   </div>
 
-  <!-- =========================
-       PISTA
-  ========================== -->
-  <div class="track">
-
-    <div class="lane">
-      <div id="car1" class="car car1"></div>
-    </div>
-
-    <div class="lane">
-      <div id="car2" class="car car2"></div>
-    </div>
-
+  <div id="car2" class="car blue">
+    <img id="avatar2" />
   </div>
+</div>
 
-  <!-- =========================
-       VUELTAS
-  ========================== -->
-  <div id="laps" class="laps"></div>
+<div id="laps"></div>
+<div id="result"></div>
 
-  <!-- =========================
-       RESULTADO
-  ========================== -->
-  <h2 id="result" class="result"></h2>
-
+<script src="script.js"></script>
 </body>
 </html>
-
